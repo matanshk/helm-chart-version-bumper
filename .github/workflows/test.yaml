@@ -1,0 +1,16 @@
+on: [push]
+
+jobs:
+  custom_test:
+    runs-on: ubuntu-latest
+    name: Action test
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: change tag
+        uses: matanshk/helm-chart-version-bumper@main
+        with:
+          mode: patch
+          chart_file: test/Chart.yaml
+      
+      - run: cat ./test/Chart.yaml

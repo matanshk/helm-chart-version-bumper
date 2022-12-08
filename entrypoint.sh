@@ -13,6 +13,16 @@ if [ "$2" ]; then
   CHART_YAML=$2
 fi
 
+
+## Check if file exist
+if test -f "$CHART_YAML"; then
+  echo "$CHART_YAML found."
+else
+  echo "File $CHART_YAML not found"
+  exit 1
+fi
+
+
 ### Chart version ###
 CHART_VERSION_ORG_TAG=$(grep "version:" Chart.yaml | cut -d " " -f 2)
 CHART_MAJOR=$(echo $CHART_VERSION_ORG_TAG | cut -d "." -f 1)

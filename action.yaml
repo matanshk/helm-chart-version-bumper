@@ -1,0 +1,17 @@
+name: 'helm-chart-version-bumper'
+description: 'Easily bump your Helm chart version'
+inputs:
+  mode:
+    description: 'major/minor/patch'
+    required: true    
+    default: patch
+  chart_file:
+    description: 'path for your Chart.yaml file'
+    required: true
+    default: Chart.yaml
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.mode}}
+    - ${{ inputs.chart_file}}   

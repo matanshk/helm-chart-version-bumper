@@ -72,5 +72,5 @@ echo "New app version: $UPDATED_APP_VERSION"
 sed -i "s#^version:.*#version: ${UPDATED_CHART_VERSION/v/}#g" "${CHART_YAML}" ## add -i
 
 
-# # ## replace appVersion
+# # ## replace appVersion version with current tag without 'v'-prefix
 sed -i "s#^appVersion:.*#appVersion: ${UPDATED_APP_VERSION}#g" "${CHART_YAML}" ## add -i

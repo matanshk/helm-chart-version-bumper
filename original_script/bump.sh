@@ -29,9 +29,6 @@ CHART_MAJOR=$(echo $CHART_VERSION_ORG_TAG | cut -d "." -f 1)
 CHART_MINOR=$(echo $CHART_VERSION_ORG_TAG | cut -d "." -f 2)
 CHART_PATCH=$(echo $CHART_VERSION_ORG_TAG | cut -d "." -f 3)
 
-# echo $CHART_MAJOR
-# echo $CHART_MINOR
-# echo $CHART_PATCH
 echo "Original Chrat version is $CHART_VERSION_ORG_TAG"
 
 ### App version ###
@@ -42,9 +39,6 @@ APP_MINOR=$(echo $APP_VERSION_ORG_TAG | cut -d "." -f 2)
 APP_PATCH=$(echo $APP_VERSION_ORG_TAG | cut -d "." -f 3)
 
 echo "Original App version is $APP_VERSION_ORG_TAG"
-# echo $APP_MAJOR
-# echo $APP_MINOR
-# echo $APP_PATCH
 
 ## version bump calculation
 if [ $MODE = "major" ]; then

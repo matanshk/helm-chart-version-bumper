@@ -13,23 +13,38 @@ if [ "$2" ]; then
   CHART_YAML=$2
 fi
 
+
+## Check if file exist
+if test -f "$CHART_YAML"; then
+  echo "$CHART_YAML found."
+else
+  echo "File $CHART_YAML not found"
+  exit 1
+fi
+
+
 ### Chart version ###
 CHART_VERSION_ORG_TAG=$(grep "version:" Chart.yaml | cut -d " " -f 2)
 CHART_MAJOR=$(echo $CHART_VERSION_ORG_TAG | cut -d "." -f 1)
 CHART_MINOR=$(echo $CHART_VERSION_ORG_TAG | cut -d "." -f 2)
 CHART_PATCH=$(echo $CHART_VERSION_ORG_TAG | cut -d "." -f 3)
 
+# echo $CHART_MAJOR
+# echo $CHART_MINOR
+# echo $CHART_PATCH
 echo "Original Chrat version is $CHART_VERSION_ORG_TAG"
 
 ### App version ###
 APP_VERSION_ORG_TAG=$(grep "appVersion:" Chart.yaml | cut -d " " -f 2)
-APP_VERSION_ORG_TAG=${APP_VERSION_ORG_TAG:2:-1}
+# APP_VERSION_ORG_TAG=${APP_VERSION_ORG_TAG:2:-1}
 APP_MAJOR=$(echo $APP_VERSION_ORG_TAG | cut -d "." -f 1)
 APP_MINOR=$(echo $APP_VERSION_ORG_TAG | cut -d "." -f 2)
 APP_PATCH=$(echo $APP_VERSION_ORG_TAG | cut -d "." -f 3)
 
 echo "Original App version is $APP_VERSION_ORG_TAG"
-
+# echo $APP_MAJOR
+# echo $APP_MINOR
+# echo $APP_PATCH
 
 ## version bump calculation
 if [ $MODE = "major" ]; then
@@ -45,7 +60,7 @@ elif [ $MODE = "patch" ]; then
     APP_PATCH=$(expr $APP_PATCH + 1)
 fi
 
-## build the new tag version
+# ## build the new tag version
 UPDATED_CHART_VERSION=$CHART_MAJOR.$CHART_MINOR.$CHART_PATCH
 UPDATED_APP_VERSION=($APP_MAJOR.$APP_MINOR.$APP_PATCH)
 
@@ -53,10 +68,9 @@ echo "New chart version: $UPDATED_CHART_VERSION"
 echo "New app version: $UPDATED_APP_VERSION"
 
 
-## replace helm-chart version with current tag without 'v'-prefix
-sed -i "s#^version:.*#version: ${UPDATED_CHART_VERSION/v/}#g" "${CHART_YAML}"
+# # ## replace helm-chart version with current tag without 'v'-prefix
+sed -i "s#^version:.*#version: ${UPDATED_CHART_VERSION/v/}#g" "${CHART_YAML}" ## add -i
 
 
-# ## replace appVersion
-sed -i "s#^appVersion:.*#appVersion: \"v${UPDATED_APP_VERSION}\"#g" "${CHART_YAML}"
-
+# # ## replace appVersion
+sed -i "s#^appVersion:.*#appVersion: ${UPDATED_APP_VERSION}#g" "${CHART_YAML}" ## add -i

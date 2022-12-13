@@ -67,6 +67,10 @@ echo "New app version: $UPDATED_APP_VERSION"
 sed -i "s#^version:.*#version: ${UPDATED_CHART_VERSION/v/}#g" "${CHART_YAML}"
 
 
-# ## replace appVersion with the version without 'v'-prefix
+## replace appVersion with the version without 'v'-prefix
 sed -i "s#^appVersion:.*#appVersion: \"v${UPDATED_APP_VERSION}\"#g" "${CHART_YAML}"
 
+
+## Set outputs
+echo "version=$UPDATED_CHART_VERSION" >> $GITHUB_OUTPUT
+echo "appversion=$UPDATED_APP_VERSION" >> $GITHUB_OUTPUT

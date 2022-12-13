@@ -11,9 +11,15 @@ jobs:
         run: ls -R
 
       - name: bump version
+        id: bumper
         uses: matanshk/helm-chart-version-bumper@main
         with:
           mode: patch
           chart_file: test/Chart.yaml
       
       - run: cat ./test/Chart.yaml
+
+      - name: test outputs
+        run: |
+          echo "Helm version: ${{ steps.bumper.outputs.version }}"
+          echo "Helm appVersion: ${{ steps.bumper.outputs.appversion }}"

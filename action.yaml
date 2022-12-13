@@ -9,6 +9,12 @@ inputs:
     description: 'path for your Chart.yaml file'
     required: true
     default: Chart.yaml
+outputs:
+  version: 
+    description: 'Helm chart version'
+  appversion:
+    description: 'Helm chart appVersion'
+
 runs:
   using: 'docker'
   image: 'Dockerfile'

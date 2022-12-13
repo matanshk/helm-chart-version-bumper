@@ -63,10 +63,10 @@ echo "New chart version: $UPDATED_CHART_VERSION"
 echo "New app version: $UPDATED_APP_VERSION"
 
 
-## replace helm-chart version with current tag without 'v'-prefix
+## replace version with the new version without 'v'-prefix
 sed -i "s#^version:.*#version: ${UPDATED_CHART_VERSION/v/}#g" "${CHART_YAML}"
 
 
-# ## replace appVersion
+# ## replace appVersion with the version without 'v'-prefix
 sed -i "s#^appVersion:.*#appVersion: \"v${UPDATED_APP_VERSION}\"#g" "${CHART_YAML}"
 

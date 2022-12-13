@@ -33,7 +33,7 @@ echo "Original Chrat version is $CHART_VERSION_ORG_TAG"
 
 ### App version ###
 APP_VERSION_ORG_TAG=$(grep "appVersion:" $CHART_YAML | cut -d " " -f 2)
-APP_VERSION_ORG_TAG=${APP_VERSION_ORG_TAG:2:-1}
+# APP_VERSION_ORG_TAG=${APP_VERSION_ORG_TAG:2:-1}
 APP_MAJOR=$(echo $APP_VERSION_ORG_TAG | cut -d "." -f 1)
 APP_MINOR=$(echo $APP_VERSION_ORG_TAG | cut -d "." -f 2)
 APP_PATCH=$(echo $APP_VERSION_ORG_TAG | cut -d "." -f 3)

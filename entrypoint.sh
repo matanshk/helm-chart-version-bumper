@@ -33,7 +33,7 @@ echo "Original Chrat version is $CHART_VERSION_ORG_TAG"
 
 ### App version ###
 APP_VERSION_ORG_TAG=$(grep "appVersion:" $CHART_YAML | cut -d " " -f 2)
-APP_VERSION_ORG_TAG=${APP_VERSION_ORG_TAG:2:-1}
+#APP_VERSION_ORG_TAG=${APP_VERSION_ORG_TAG:2:-1}
 APP_MAJOR=$(echo $APP_VERSION_ORG_TAG | cut -d "." -f 1)
 APP_MINOR=$(echo $APP_VERSION_ORG_TAG | cut -d "." -f 2)
 APP_PATCH=$(echo $APP_VERSION_ORG_TAG | cut -d "." -f 3)
@@ -68,8 +68,8 @@ sed -i "s#^version:.*#version: ${UPDATED_CHART_VERSION/v/}#g" "${CHART_YAML}"
 
 
 ## replace appVersion with the version without 'v'-prefix
-sed -i "s#^appVersion:.*#appVersion: \"v${UPDATED_APP_VERSION}\"#g" "${CHART_YAML}"
-
+sed -i "s#^appVersion:.*#appVersion: ${UPDATED_APP_VERSION}#g" "${CHART_YAML}"
+#sed -i "s#^appVersion:.*#appVersion: \"v${UPDATED_APP_VERSION}\"#g" "${CHART_YAML}"
 
 ## Set outputs
 echo "version=$UPDATED_CHART_VERSION" >> $GITHUB_OUTPUT
